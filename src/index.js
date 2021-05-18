@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { connect } from 'react-redux'
 import { ListItem, Input } from './components'
-import { complete, submit } from './reducers/todos'
+import { complete, saveTodo } from './reducers/todos'
 
 const App = ({ data, complete, submit }) => {
 
@@ -44,7 +44,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
 	complete: (id) => dispatch(complete(id)),
-	submit: (val) => dispatch(submit(val)),
+	submit: (val) => dispatch(saveTodo(val)),
 })
 
 const styles = StyleSheet.create({
