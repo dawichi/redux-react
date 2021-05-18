@@ -17,9 +17,8 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 15,
 		height: 60,
 		justifyContent: 'center',
-		backgroundColor: '#eee',
 		borderBottomWidth: 1,
-		borderBottomColor: '#ccc',
+		borderBottomColor: '#eee',
 	},
 	text: {
 		fontSize: 18,

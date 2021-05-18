@@ -1,12 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { connect } from 'react-redux'
-import { ListItem } from './components'
-import { complete } from './reducers/todos'
+import { ListItem, Input } from './components'
+import { complete, submit } from './reducers/todos'
 
-const App = ({ data, complete }) => {
+const App = ({ data, complete, submit }) => {
+
+	const [value, setValue] = useState('')
+
+	const handleChange = (val) => {
+		setValue(val)
+	}
+
+	const handleSubmit = () => {
+		submit(value)
+		setValue('')
+	}
+
 	return (
 		<View style={styles.container}>
+			<Input onChange={handleChange} value={value} onSubmit={handleSubmit} />
 			<FlatList
 				style={styles.list}
 				data={data}
@@ -30,7 +43,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-	complete: (id) => dispatch(complete(id))
+	complete: (id) => dispatch(complete(id)),
+	submit: (val) => dispatch(submit(val)),
 })
 
 const styles = StyleSheet.create({
