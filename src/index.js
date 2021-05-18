@@ -2,13 +2,9 @@ import React from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { connect } from 'react-redux'
 import { ListItem } from './components'
+import { complete } from './reducers/todos'
 
-const data = [
-	{ id: 1, desc: 'faketodo1', completed: false },
-	{ id: 2, desc: 'faketodo2', completed: false },
-]
-
-const App = () => {
+const App = ({ data, complete }) => {
 	return (
 		<View style={styles.container}>
 			<FlatList
@@ -17,8 +13,9 @@ const App = () => {
 				keyExtractor={x => String(x.id)}
 				renderItem={({ item }) =>
 					<ListItem
-						onPress={() => {}}
+						onPress={() => complete(item.id)}
 						desc={item.desc}
+						completed={item.completed}
 					/>
 				}
 			/>
@@ -27,9 +24,14 @@ const App = () => {
 }
 
 const mapStateToProps = state => {
-	console.log(state)
-	return state
+	// NOTE: Don't modify data here, only call data
+	// Heavy operations must be done inside App()
+	return { data: state.todos}
 }
+
+const mapDispatchToProps = dispatch => ({
+	complete: (id) => dispatch(complete(id))
+})
 
 const styles = StyleSheet.create({
 	container: {
@@ -45,4 +47,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)
